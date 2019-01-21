@@ -94,7 +94,7 @@ export default {
     createRequest(formName) {
       this.$refs[formName].validate(valid => {
         if (valid) {
-          createParseRequest(this.requestForm).then(data => {
+          createParseRequest(this.requestForm).then(() => {
             this.$notify({
               title: "Success",
               message: "Parse request created, email with results will be sent to your email",
