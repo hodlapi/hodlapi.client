@@ -4,7 +4,7 @@
       :model="requestForm"
       :rules="requestFormRules"
       ref="requestForm"
-      label-width="120px"
+      label-width="80px"
       class="demo-ruleForm"
     >
       <el-form-item label="Symbols" prop="symbols">
