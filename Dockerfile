@@ -24,9 +24,9 @@ RUN apt-get -y update && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Replace default config
-COPY --from=build /app/build/ /data/www
+COPY --from=build /app/dist/ /data/www
 COPY --from=build /app/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/nginx/default_app.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 VOLUME ["/etc/nginx/conf.d", "/data/www"]
 EXPOSE 80
