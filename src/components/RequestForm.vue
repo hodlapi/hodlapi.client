@@ -100,6 +100,15 @@ export default {
               message: "Parse request created, email with results will be sent to your email",
               type: "success"
             });
+          }, err => {
+            const { status } = err.response;
+            if (status === 403) {
+              this.$notify({
+              title: "Error",
+              message: "Your email is forbitten, please contact us",
+              type: "error"
+            });
+            }
           });
         } else {
           return false;
