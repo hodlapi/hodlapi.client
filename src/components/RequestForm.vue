@@ -105,7 +105,7 @@ export default {
             if (status === 403) {
               this.$notify({
               title: "Error",
-              message: "Your email is forbitten, please contact us",
+              message: "Your email is forbidden, please contact us",
               type: "error"
             });
             }
