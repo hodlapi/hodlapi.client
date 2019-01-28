@@ -1,4 +1,4 @@
-const host = 'https://api.hodlapi.com:3000';
+const host = 'https://api.hodlapi.com';
 
 export {
     host
