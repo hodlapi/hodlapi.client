@@ -40,12 +40,19 @@
         <div class="form-group">
           <label class="form-label">Date range</label>
           <div class="form-value">
-              
+            <el-date-picker
+              type="daterange"
+              align="right"
+              unlink-panels
+              range-separator="To"
+              start-placeholder="Pick start date"
+              end-placeholder="Pick end date"
+            ></el-date-picker>
           </div>
         </div>
       </div>
       <div class="form-action">
-        <button>create parse request</button>
+        <button>Сreate parse request</button>
       </div>
     </div>
   </div>

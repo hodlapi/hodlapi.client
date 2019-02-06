@@ -30,9 +30,11 @@ export default {
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
+  opacity: 0.5;
   &.active {
     border-width: 2px;
     border-color: $primary;
+    opacity: 1;
   }
   &.logo {
     height: 34px;

@@ -1,8 +1,13 @@
 <template>
   <Main>
-    <div class="page">
-      <RequestForm></RequestForm>
-    </div>
+    <el-row :gutter="42">
+      <el-col :span="8">
+        <RequestForm></RequestForm>
+      </el-col>
+      <el-col :span="16">
+        <RequestList></RequestList>
+      </el-col>
+    </el-row>
   </Main>
 </template>
 

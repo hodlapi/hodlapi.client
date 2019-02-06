@@ -18,15 +18,16 @@
 <style lang="scss" scoped>
 @import "../styles/_consts.scss";
 .main {
+    $sidebar-width: 80px;
   display: flex;
   &__sidebar {
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    width: 80px;
+    width: $sidebar-width;
     height: 100vh;
     background-color: $block-background;
-    // position: fixed;
+    position: fixed;
     .logo {
       height: 80px;
       width: 80px;
@@ -58,6 +59,8 @@
   }
   &__container {
       margin: 60px;
+      width: 100%;
+      margin-left: calc(#{$sidebar-width} + 60px);
   }
 }
 </style>
