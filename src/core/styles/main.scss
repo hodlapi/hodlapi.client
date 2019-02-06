@@ -1,0 +1,8 @@
+@import './consts';
+
+body {
+    background-color: $main-background;
+    margin: 0;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}

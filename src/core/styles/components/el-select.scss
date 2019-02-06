@@ -1,0 +1,18 @@
+@import '../consts';
+
+.el-select {
+    &>.el-input {
+        &>input {
+            background-color: $block-background;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 24px;
+            color: rgba(white, 0.4);
+            border: 1px solid rgba(white, 0.12);
+            border-radius: 6px;
+        }
+    }
+    & .el-input.is-focus .el-input__inner {
+        border-color: $primary;
+    }
+}
