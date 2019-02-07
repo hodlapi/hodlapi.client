@@ -48,10 +48,6 @@
 </script>
 
 <style lang="scss">
-    .user-settings-wr {
-        margin: 50px 0;
-        width: 760px;
-    }
     .user-settings-form {
         padding: 32px 32px 12px;
     }

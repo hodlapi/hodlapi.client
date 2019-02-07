@@ -2,11 +2,15 @@
   <div class="main">
     <div class="main__sidebar">
       <div class="logo">
-          <span>H</span>
+        <router-link :to="{name: 'requests'}">
+          <span class="logo-name">H</span>
+        </router-link>
       </div>
       <ul class="navbar"></ul>
       <div class="user-meta">
-        <img src="http://i.pravatar.cc/300" class="user-meta-block">
+        <router-link :to="{name: 'user'}">
+          <img src="http://i.pravatar.cc/300" class="user-meta-block">
+        </router-link>
       </div>
     </div>
     <div class="main__container">
@@ -18,7 +22,7 @@
 <style lang="scss" scoped>
 @import "../styles/_consts.scss";
 .main {
-    $sidebar-width: 80px;
+  $sidebar-width: 80px;
   display: flex;
   &__sidebar {
     display: flex;
@@ -35,9 +39,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      > span {
-          color: white;
-          font-size: 42px;
+      a {
+        text-decoration: none;
+      }
+      &-name {
+        color: white;
+        font-size: 42px;
+        user-select: none;
       }
     }
     .navbar {
@@ -58,9 +66,9 @@
     }
   }
   &__container {
-      margin: 60px;
-      width: 100%;
-      margin-left: calc(#{$sidebar-width} + 60px);
+    margin: 60px;
+    width: 100%;
+    margin-left: calc(#{$sidebar-width} + 60px);
   }
 }
 </style>

@@ -46,7 +46,6 @@
     .subs-settings-wr {
         padding: 32px;
         width: 360px;
-        margin-top: 30px;
     }
 
     .subs-prev-payments {
@@ -74,7 +73,7 @@
         position: relative;
         width: 120px;
         margin: 25px auto 0;
-        background: url('../../assets/chevron.svg') no-repeat right;
+        background: url('../assets/chevron.svg') no-repeat right;
     }
 
     .subscription-badge {

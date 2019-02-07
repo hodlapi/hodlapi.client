@@ -3,12 +3,12 @@ import Router from 'vue-router'
 import Login from './Login/Login.vue';
 import Profile from './Profile/Profile.vue';
 import Request from './Request/Request.vue';
+import User from './User/User.vue';
 
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
+  routes: [{
       path: '/login',
       name: 'login',
       component: Login
@@ -19,9 +19,9 @@ export default new Router({
       component: Profile
     },
     {
-      path: '/users',
-      name: 'users',
-      children: []
+      path: '/user',
+      name: 'user',
+      component: User
     },
     {
       path: '',
