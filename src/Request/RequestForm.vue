@@ -32,7 +32,7 @@
             <IntervalItem
               v-for="item in intervals"
               :key="item"
-              :selected="item === form.interval"
+              :selected="isIntervalSelected(item)"
               @click.native="onIntervalSelect(item)"
             >{{item}}</IntervalItem>
           </div>
@@ -72,7 +72,7 @@ export default {
       ],
       form: {
         platform: null,
-        interval: null
+        intervals: []
       }
     };
   },
@@ -88,10 +88,21 @@ export default {
       };
     },
     onIntervalSelect(interval) {
-      this.form = {
-        ...this.form,
-        interval
-      };
+      let curIntervals = this.form.intervals.filter(function(elem) {
+        if (elem != interval) return elem;
+      });
+      if (curIntervals.length != this.form.intervals.length) {
+        this.form.intervals = curIntervals;
+        return;
+      }
+      this.form.intervals = [...this.form.intervals, interval];
+    },
+    isIntervalSelected(interval) {
+      return (
+        this.form.intervals.filter(function(elem) {
+          if (elem == interval) return elem;
+        }).length > 0
+      );
     }
   }
 };
