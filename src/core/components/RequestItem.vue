@@ -58,6 +58,7 @@ export default {
     align-items: center;
     justify-content: center;
     .action {
+        cursor: pointer;
         height: 44px;
         width: 44px;
         border-radius: 100%;
