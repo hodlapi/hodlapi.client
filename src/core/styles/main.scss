@@ -1,39 +1,59 @@
 @import './consts';
 
 body {
-    background-color: $main-background;
-    margin: 0;
-    height: 100vh;
-    font-family: 'Roboto', sans-serif;
+  background-color: $main-background;
+  margin: 0;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
 }
 
 .footer--button {
-    background: #00A192;
-    padding: 19px 0 20px;
-    width: 100%;
-    border: none;
-    border-radius: 0;
-    color: #fff;
-    text-transform: uppercase;
-  }
-  .block-title {
-    color: #fff;
-    font-size: 24px;
+  background: #00A192;
+  padding: 19px 0 20px;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.block-title {
+  color: #fff;
+  font-size: 24px;
+  padding: 0;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+.block {
+  background: #13191D;
+  box-shadow: 0 2px 30px rgba(0, 0, 0, 0.24);
+  border-radius: 4px;
+  border: none;
+
+  & .el-card__body {
     padding: 0;
-    font-weight: 300;
-    margin-bottom: 30px;
   }
-  .block {
-    background: #13191D;
-    box-shadow: 0 2px 30px rgba(0, 0, 0, 0.24);
-    border-radius: 4px;
-    border: none;
-    & .el-card__body {
-      padding: 0;
-    }
+}
+
+.label {
+  text-transform: uppercase;
+  color: #fff;
+  font-weight: 600;
+}
+
+.router-link {
+  text-decoration: none;
+  color: #fff;
+  opacity: 0.4;
+}
+
+.flex {
+  display: flex;
+  &-row-reverse {
+    flex-direction: row-reverse;
   }
-  .label {
-    text-transform: uppercase;
-    color: #fff;
-    font-weight: 600;
+  &-center {
+    justify-content: center;
   }
+}

@@ -15,6 +15,17 @@
         color: $font-primary-color;
     }
 
+    &-centered-title {
+        font-family: Roboto;
+        font-style: normal;
+        font-weight: 300;
+        line-height: normal;
+        font-size: 24px;
+        color: $font-primary-color;
+        display: flex;
+        justify-content: center;
+    }
+
     &-group {
         display: flex;
         flex-direction: column;

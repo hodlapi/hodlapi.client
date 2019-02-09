@@ -1,0 +1,16 @@
+@import '../consts';
+
+.el-input {
+    background: inherit;
+    &__inner {
+        background: inherit;
+        border: 1px solid rgba(white, 0.12);
+        color: rgba(white, 0.6);
+        &::placeholder {
+            color: rgba(white, 0.4);
+        }
+        &:active, &:focus, &.is-focus {
+            border-color: $primary;
+        }
+    }
+}
