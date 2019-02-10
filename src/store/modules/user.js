@@ -1,6 +1,19 @@
 
 export default {
-    state: {},
-    mutations: {},
+    namespaced: true,
+    state: {
+        token: localStorage.getItem('token')
+    },
+    mutations: {
+        SET_TOKEN(state, token) {
+            state.token = token;
+            localStorage.setItem('token', token);
+        },
+
+        REMOVE_TOKEN(state) {
+            state.token = null;
+            localStorage.removeItem('toekn');
+        }
+    },
     actions: {}
 };
