@@ -9,10 +9,10 @@
             <ExchangeItem
               class="exchange-item-container"
               v-for="item in dataSources"
-              :key="item.id"
+              :key="item.name"
               :item="item"
-              :selected="item.id === form.dataSource"
-              @click.native="onDataSourceSelect(item.id)"
+              :selected="item.name === form.dataSource"
+              @click.native="onDataSourceSelect(item.name)"
             ></ExchangeItem>
           </div>
         </div>
