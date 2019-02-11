@@ -25,8 +25,12 @@
               placeholder="Choose desired pair(s)"
               filterable
             >
-            <el-option v-for="pair in currencyPairs" :key="pair._id" :value="pair._id" :label="pair.name">
-            </el-option>
+              <el-option
+                v-for="pair in currencyPairs"
+                :key="pair._id"
+                :value="pair._id"
+                :label="pair.name"
+              ></el-option>
             </el-select>
           </div>
         </div>
@@ -45,6 +49,7 @@
           <label class="form-label">Date range</label>
           <div class="form-value">
             <el-date-picker
+              v-model="form.range"
               type="daterange"
               align="right"
               unlink-panels
@@ -56,7 +61,10 @@
         </div>
       </div>
       <div class="form-action">
-        <button>Сreate parse request</button>
+        <button
+          @click="createRequest"
+          :disabled="!form.dataSource || !form.pair || !form.intervals || !form.intervals.length"
+        >Сreate parse request</button>
       </div>
     </div>
   </div>
@@ -96,10 +104,12 @@ export default {
     onDataSourceSelect(dataSource) {
       this.form = {
         ...this.form,
-        dataSource
+        dataSource,
+        pair: null
       };
       this.getCurrencyPairs(dataSource);
     },
+
     onIntervalSelect(interval) {
       let curIntervals = this.form.intervals.filter(elem => elem != interval);
       if (curIntervals.length != this.form.intervals.length) {
@@ -108,9 +118,11 @@ export default {
       }
       this.form.intervals = [...this.form.intervals, interval];
     },
+
     isIntervalSelected(interval) {
       return this.form.intervals.filter(elem => elem == interval).length > 0;
     },
+
     getIntervals() {
       api()
         .get("/intervals")
@@ -121,6 +133,7 @@ export default {
           );
         });
     },
+
     getDataSources() {
       api()
         .get("/dataSources")
@@ -131,6 +144,7 @@ export default {
           );
         });
     },
+
     getCurrencyPairs(dataSourceId) {
       api()
         .get("/currencyPairs", { params: { dataSourceId } })
@@ -140,6 +154,12 @@ export default {
             R.pathOr(null, ["data"])(data)
           );
         });
+    },
+
+    createRequest() {
+      api().post('/request', { ...form }).then(data => {
+        console.log(data);
+      });
     }
   }
 };
