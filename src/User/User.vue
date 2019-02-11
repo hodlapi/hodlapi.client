@@ -13,7 +13,7 @@
 
 <script>
 import Main from "../core/layouts/Main";
-import SubscriptionSettigns from "./SubscribtionSettings";
+import SubscriptionSettigns from "./SubscriptionSettings";
 import UserSettings from "./UserSettings";
 
 export default {

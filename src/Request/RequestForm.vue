@@ -8,11 +8,11 @@
           <div class="form-value">
             <ExchangeItem
               class="exchange-item-container"
-              v-for="item in exchangePlatforms"
+              v-for="item in dataSources"
               :key="item.id"
               :item="item"
-              :selected="item.id === form.platform"
-              @click.native="onPlatformSelect(item.id)"
+              :selected="item.id === form.dataSource"
+              @click.native="onDataSourceSelect(item.id)"
             ></ExchangeItem>
           </div>
         </div>
@@ -66,12 +66,12 @@ export default {
   data() {
     return {
       intervals: ["1m", "5m", "15m", "30m", "1h"],
-      exchangePlatforms: [
+      dataSources: [
         { id: "binance", logo: require("../assets/binance.svg") },
         { id: "0x", logo: require("../assets/0x.svg") }
       ],
       form: {
-        platform: null,
+        dataSource: null,
         intervals: []
       }
     };
