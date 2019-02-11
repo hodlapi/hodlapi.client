@@ -11,8 +11,8 @@
               v-for="item in dataSources"
               :key="item.name"
               :item="item"
-              :selected="item.name === form.dataSource"
-              @click.native="onDataSourceSelect(item.name)"
+              :selected="item._id === form.dataSource"
+              @click.native="onDataSourceSelect(item._id)"
             ></ExchangeItem>
           </div>
         </div>
@@ -23,7 +23,11 @@
               class="form-field-container"
               v-model="form.pair"
               placeholder="Choose desired pair(s)"
-            ></el-select>
+              filterable
+            >
+            <el-option v-for="pair in currencyPairs" :key="pair._id" :value="pair._id" :label="pair.name">
+            </el-option>
+            </el-select>
           </div>
         </div>
         <div class="form-group">
@@ -68,11 +72,6 @@ import * as R from "ramda";
 export default {
   data() {
     return {
-      // intervals: ["1m", "5m", "15m", "30m", "1h"],
-      // dataSources: [
-      //   { id: "binance", logo: require("../assets/binance.svg") },
-      //   { id: "0x", logo: require("../assets/0x.svg") }
-      // ],
       form: {
         dataSource: null,
         intervals: []
@@ -99,11 +98,10 @@ export default {
         ...this.form,
         dataSource
       };
+      this.getCurrencyPairs(dataSource);
     },
     onIntervalSelect(interval) {
-      let curIntervals = this.form.intervals.filter(function(elem) {
-        if (elem != interval) return elem;
-      });
+      let curIntervals = this.form.intervals.filter(elem => elem != interval);
       if (curIntervals.length != this.form.intervals.length) {
         this.form.intervals = curIntervals;
         return;
@@ -111,40 +109,36 @@ export default {
       this.form.intervals = [...this.form.intervals, interval];
     },
     isIntervalSelected(interval) {
-      return (
-        this.form.intervals.filter(function(elem) {
-          if (elem == interval) return elem;
-        }).length > 0
-      );
+      return this.form.intervals.filter(elem => elem == interval).length > 0;
     },
     getIntervals() {
       api()
         .get("/intervals")
         .then(data => {
-          const intervals = R.pathOr(null, ["data"])(data);
-          this.$store
-            .dispatch("intervals/setIntervals", intervals)
-            .then(() => {});
+          this.$store.dispatch(
+            "intervals/setIntervals",
+            R.pathOr(null, ["data"])(data)
+          );
         });
     },
     getDataSources() {
       api()
         .get("/dataSources")
         .then(data => {
-          const dataSources = R.pathOr(null, ["data"])(data);
-          this.$store
-            .dispatch("dataSources/setDataSources", dataSources)
-            .then(() => {});
+          this.$store.dispatch(
+            "dataSources/setDataSources",
+            R.pathOr(null, ["data"])(data)
+          );
         });
     },
-    getCurrencyPairs() {
+    getCurrencyPairs(dataSourceId) {
       api()
-        .get("/currencyPairs")
+        .get("/currencyPairs", { params: { dataSourceId } })
         .then(data => {
-          const currencyPairs = R.pathOr(null, ["data"])(data);
-          this.$store
-            .dispatch("currencyPairs/setCurrencyPairs", currencyPairs)
-            .then(() => {});
+          this.$store.dispatch(
+            "currencyPairs/setCurrencyPairs",
+            R.pathOr(null, ["data"])(data)
+          );
         });
     }
   }
