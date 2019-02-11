@@ -8,9 +8,7 @@ export default {
     },
     mutations: {
         SET_CURRENCYPAIRS(state, currencyPairs) {
-            state.currencyPairs = {
-                ...currencyPairs
-            };
+            state.currencyPairs = currencyPairs;
         },
 
         REMOVE_CURRENCYPAIRS(state) {

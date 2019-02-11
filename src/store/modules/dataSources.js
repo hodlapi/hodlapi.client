@@ -8,9 +8,7 @@ export default {
     },
     mutations: {
         SET_DATASOURCES(state, dataSources) {
-            state.dataSources = {
-                ...dataSources
-            };
+            state.dataSources = dataSources;
         },
 
         REMOVE_DATASOURCES(state) {

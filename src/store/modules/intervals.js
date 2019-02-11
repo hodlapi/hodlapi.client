@@ -8,9 +8,7 @@ export default {
     },
     mutations: {
         SET_INTERVALS(state, intervals) {
-            state.intervals = {
-                ...intervals
-            };
+            state.intervals = intervals;
         },
 
         REMOVE_INTERVALS(state) {

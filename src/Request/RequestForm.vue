@@ -80,9 +80,9 @@ export default {
     };
   },
   computed: mapState({
-    intervals: "intervals",
-    dataSources: "dataSources",
-    currencyPairs: "currencyPairs"
+    intervals: "intervals/intervals",
+    dataSources: "dataSources/dataSources",
+    currencyPairs: "currencyPairs/currencyPairs"
   }),
   components: {
     ExchangeItem,
