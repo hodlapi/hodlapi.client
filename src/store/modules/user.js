@@ -40,10 +40,11 @@ export default {
         loadUser({
             commit
         }) {
-            api().get('/user')
+            return api().get('/user')
                 .then(R.pathOr({}, ['data']))
                 .then(user => {
                     commit('SET_USER', user);
+                    return user;
                 });
         }
     }
