@@ -80,9 +80,9 @@ export default {
     };
   },
   computed: mapState({
-    intervals: "intervals/intervals",
-    dataSources: "dataSources/dataSources",
-    currencyPairs: "currencyPairs/currencyPairs"
+    intervals: R.pathOr([], ["intervals", "intervals"]),
+    dataSources: R.pathOr([], ["dataSources", "dataSources"]),
+    currencyPairs: R.pathOr([], ["currencyPairs", "currencyPairs"])
   }),
   components: {
     ExchangeItem,
