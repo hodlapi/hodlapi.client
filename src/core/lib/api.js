@@ -1,7 +1,13 @@
 import axios from 'axios';
-import * as R from 'ramda';
-import { host } from './constants';
+import {
+    host
+} from './constants';
 
-export const getSymbols = () => axios.get(`${host}/api/binance/symbols`).then(R.propOr([], 'data'));
+const api = (baseURL = host, headers = {
+    Authorization: localStorage.getItem('token') && `Bearer ${localStorage.getItem('token')}`
+}) => axios.create({
+    baseURL,
+    headers
+});
 
-export const createParseRequest = params => axios.post(`${host}/api/binance/parse`, { ...params }).then(R.propOr({}, 'data'));
+export default api;

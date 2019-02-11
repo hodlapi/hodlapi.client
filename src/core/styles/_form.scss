@@ -68,6 +68,10 @@
             background-color: $primary;
             color: $font-primary-color;
             text-transform: uppercase;
+            cursor: pointer;
+            &:active {
+                opacity: 0.9;
+            }
         }
     }
 }
