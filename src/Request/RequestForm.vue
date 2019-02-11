@@ -31,10 +31,10 @@
           <div class="form-value intervals-container">
             <IntervalItem
               v-for="item in intervals"
-              :key="item"
-              :selected="isIntervalSelected(item)"
-              @click.native="onIntervalSelect(item)"
-            >{{item}}</IntervalItem>
+              :key="item.value"
+              :selected="isIntervalSelected(item.value)"
+              @click.native="onIntervalSelect(item.value)"
+            >{{item.value}}</IntervalItem>
           </div>
         </div>
         <div class="form-group">
@@ -61,30 +61,43 @@
 <script>
 import ExchangeItem from "../core/components/ExchangeItem";
 import IntervalItem from "../core/components/IntervalItem";
+import { mapState } from "vuex";
+import { api } from "../core/lib";
+import * as R from "ramda";
 
 export default {
   data() {
     return {
-      intervals: ["1m", "5m", "15m", "30m", "1h"],
-      dataSources: [
-        { id: "binance", logo: require("../assets/binance.svg") },
-        { id: "0x", logo: require("../assets/0x.svg") }
-      ],
+      // intervals: ["1m", "5m", "15m", "30m", "1h"],
+      // dataSources: [
+      //   { id: "binance", logo: require("../assets/binance.svg") },
+      //   { id: "0x", logo: require("../assets/0x.svg") }
+      // ],
       form: {
         dataSource: null,
         intervals: []
       }
     };
   },
+  computed: mapState({
+    intervals: "intervals",
+    dataSources: "dataSources",
+    currencyPairs: "currencyPairs"
+  }),
   components: {
     ExchangeItem,
     IntervalItem
   },
+  beforeMount() {
+    this.getIntervals();
+    this.getDataSources();
+    this.getCurrencyPairs();
+  },
   methods: {
-    onPlatformSelect(platform) {
+    onDataSourceSelect(dataSource) {
       this.form = {
         ...this.form,
-        platform
+        dataSource
       };
     },
     onIntervalSelect(interval) {
@@ -103,6 +116,36 @@ export default {
           if (elem == interval) return elem;
         }).length > 0
       );
+    },
+    getIntervals() {
+      api()
+        .get("/intervals")
+        .then(data => {
+          const intervals = R.pathOr(null, ["data"])(data);
+          this.$store
+            .dispatch("intervals/setIntervals", intervals)
+            .then(() => {});
+        });
+    },
+    getDataSources() {
+      api()
+        .get("/dataSources")
+        .then(data => {
+          const dataSources = R.pathOr(null, ["data"])(data);
+          this.$store
+            .dispatch("dataSources/setDataSources", dataSources)
+            .then(() => {});
+        });
+    },
+    getCurrencyPairs() {
+      api()
+        .get("/currencyPairs")
+        .then(data => {
+          const currencyPairs = R.pathOr(null, ["data"])(data);
+          this.$store
+            .dispatch("currencyPairs/setCurrencyPairs", currencyPairs)
+            .then(() => {});
+        });
     }
   }
 };
