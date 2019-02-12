@@ -75,6 +75,7 @@
 import ExchangeItem from "../core/components/ExchangeItem";
 import IntervalItem from "../core/components/IntervalItem";
 import { mapState } from "vuex";
+import { Message } from "element-ui";
 import { api } from "../core/lib";
 import * as R from "ramda";
 
@@ -164,7 +165,28 @@ export default {
         .post("/request", { ...this.form })
         .then(data => {
           console.log(data);
+          this.clearForm();
+          this.showSuccessMessage();
         });
+    },
+
+    clearForm() {
+      this.form = {
+        dataSource: null,
+        intervals: [],
+        range: null,
+        pairs: []
+      };
+    },
+
+    showSuccessMessage() {
+      this.$message({
+        dangerouslyUseHTMLString: true,
+        type: "success",
+        duration: 7000,
+        message:
+          "<div>Your request was successfully created!</div></br><div> We will send you an email with results soon :)</div>"
+      });
     }
   }
 };
