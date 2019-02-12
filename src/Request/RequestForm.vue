@@ -21,9 +21,10 @@
           <div class="form-value">
             <el-select
               class="form-field-container"
-              v-model="form.pair"
+              v-model="form.pairs"
               placeholder="Choose desired pair(s)"
               filterable
+              multiple
             >
               <el-option
                 v-for="pair in currencyPairs"
@@ -63,7 +64,7 @@
       <div class="form-action">
         <button
           @click="createRequest"
-          :disabled="!form.dataSource || !form.pair || !form.intervals || !form.intervals.length"
+          :disabled="!form.dataSource || !form.pairs || !form.pairs.length || !form.intervals || !form.intervals.length"
         >Сreate parse request</button>
       </div>
     </div>
@@ -86,11 +87,13 @@ export default {
       }
     };
   },
-  computed: mapState({
-    intervals: R.pathOr([], ["intervals", "intervals"]),
-    dataSources: R.pathOr([], ["dataSources", "dataSources"]),
-    currencyPairs: R.pathOr([], ["currencyPairs", "currencyPairs"])
-  }),
+  computed: {
+    ...mapState({
+      intervals: R.pathOr([], ["intervals", "intervals"]),
+      dataSources: R.pathOr([], ["dataSources", "dataSources"]),
+      currencyPairs: R.pathOr([], ["currencyPairs", "currencyPairs"])
+    })
+  },
   components: {
     ExchangeItem,
     IntervalItem
@@ -105,7 +108,7 @@ export default {
       this.form = {
         ...this.form,
         dataSource,
-        pair: null
+        pairs: []
       };
       this.getCurrencyPairs(dataSource);
     },
@@ -157,9 +160,11 @@ export default {
     },
 
     createRequest() {
-      api().post('/request', { ...form }).then(data => {
-        console.log(data);
-      });
+      api()
+        .post("/request", { ...this.form })
+        .then(data => {
+          console.log(data);
+        });
     }
   }
 };
