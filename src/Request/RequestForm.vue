@@ -21,7 +21,7 @@
           <div class="form-value">
             <el-select
               class="form-field-container"
-              v-model="form.pairs"
+              v-model="form.currencyPairs"
               placeholder="Choose desired pair(s)"
               filterable
               multiple
@@ -64,7 +64,9 @@
       <div class="form-action">
         <button
           @click="createRequest"
-          :disabled="!form.dataSource || !form.pairs || !form.pairs.length || !form.intervals || !form.intervals.length"
+          :disabled="!form.dataSource || !form.currencyPairs || 
+          !form.currencyPairs.length || !form.intervals || 
+          !form.intervals.length || !form.range"
         >Сreate parse request</button>
       </div>
     </div>
@@ -109,7 +111,7 @@ export default {
       this.form = {
         ...this.form,
         dataSource,
-        pairs: []
+        currencyPairs: []
       };
       this.getCurrencyPairs(dataSource);
     },
@@ -175,7 +177,7 @@ export default {
         dataSource: null,
         intervals: [],
         range: null,
-        pairs: []
+        currencyPairs: []
       };
     },
 

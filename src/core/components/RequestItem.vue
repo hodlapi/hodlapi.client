@@ -1,7 +1,7 @@
 <template>
   <div class="request-item">
     <div class="request-logo">
-      <img :src="request.dataSource.logo">
+      <img v-if="request.dataSource" :src="request.dataSource.logo">
     </div>
     <div class="request-meta">
       <div class="request-meta-currency-pairs">
@@ -25,7 +25,10 @@
         </div>
         <div class="meta">
           <i class="meta-icon el-icon-document"></i>
-          <div class="meta-value">{{request.size}}</div>
+          <div class="meta-value" v-for="(file,index) of request.files"
+              :key="file._id">
+              {{file.name}}
+              <span v-if="index != Object.keys(request.currencyPairs).length - 1">,&nbsp;</span></div>
         </div>
       </div>
     </div>
