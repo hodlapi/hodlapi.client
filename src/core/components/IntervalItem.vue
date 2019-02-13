@@ -33,6 +33,7 @@ export default {
   line-height: 24px;
   font-size: 14px;
   cursor: pointer;
+  user-select: none;
   &.active {
       background-color: $primary;
       color: white;

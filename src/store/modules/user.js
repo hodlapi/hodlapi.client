@@ -17,7 +17,7 @@ export default {
 
         REMOVE_TOKEN(state) {
             state.token = null;
-            localStorage.removeItem('toekn');
+            localStorage.removeItem('token');
         },
 
         SET_USER(state, user) {

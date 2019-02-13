@@ -1,22 +1,34 @@
 <template>
   <div class="request-item">
     <div class="request-logo">
-      <img :src="request.logo">
+      <img v-if="request.dataSource" :src="request.dataSource.logo">
     </div>
     <div class="request-meta">
-      <div class="request-meta-name">{{request.pair}}</div>
+      <div class="request-meta-currency-pairs">
+        <span class="request-meta-name"
+              v-for="(currencyPair,index) of request.currencyPairs"
+              :key="currencyPair.name">
+              {{currencyPair.name}}
+              <span v-if="index != Object.keys(request.currencyPairs).length - 1">,&nbsp;</span>
+        </span>
+      </div>
       <div class="request-meta-values">
         <div class="meta">
           <i class="meta-icon el-icon-time"></i>
-          <div class="meta-value">{{request.interval}}</div>
+          <div class="meta-value" 
+          v-for="interval in request.intervals"
+              :key="interval">{{interval}}&nbsp;</div>
         </div>
         <div class="meta">
           <i class="meta-icon el-icon-date"></i>
-          <div class="meta-value">{{request.range}}</div>
+          <div class="meta-value">{{request.fromDate | formatDate}} - {{request.toDate | formatDate}}</div>
         </div>
         <div class="meta">
           <i class="meta-icon el-icon-document"></i>
-          <div class="meta-value">{{request.size}}</div>
+          <div class="meta-value" v-for="(file,index) of request.files"
+              :key="file._id">
+              {{file.name}}
+              <span v-if="index != Object.keys(request.currencyPairs).length - 1">,&nbsp;</span></div>
         </div>
       </div>
     </div>
@@ -29,6 +41,9 @@
 </template>
 
 <script>
+import moment from "moment";
+import Vue from "vue";
+
 export default {
   props: {
     request: {
@@ -36,6 +51,12 @@ export default {
     }
   }
 };
+
+Vue.filter("formatDate", function(value) {
+  if (value) {
+    return moment(String(value)).format("DD.MM.YYYY");
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -58,16 +79,16 @@ export default {
     align-items: center;
     justify-content: center;
     .action {
-        cursor: pointer;
-        height: 44px;
-        width: 44px;
-        border-radius: 100%;
-        border: 2px solid $primary;
-        color: $primary;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 24px;
+      cursor: pointer;
+      height: 44px;
+      width: 44px;
+      border-radius: 100%;
+      border: 2px solid $primary;
+      color: $primary;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
     }
   }
   .request-meta {
@@ -81,21 +102,24 @@ export default {
       line-height: 24px;
       font-size: 14px;
     }
+    &-currency-pairs {
+      flex-direction: row;
+    }
     &-values {
+      display: flex;
+      flex-direction: row;
+      margin-top: 6px;
+      .meta {
         display: flex;
-        flex-direction: row;
-        margin-top: 6px;
-        .meta {
-            display: flex;
-            align-items: center;
-            color: $font-primary-color;
-            opacity: 0.4;
-            margin-right: 34px;
-            font-size: 14px;
-            &-icon {
-                margin-right: 5px;
-            }
+        align-items: center;
+        color: $font-primary-color;
+        opacity: 0.4;
+        margin-right: 34px;
+        font-size: 14px;
+        &-icon {
+          margin-right: 5px;
         }
+      }
     }
   }
 }

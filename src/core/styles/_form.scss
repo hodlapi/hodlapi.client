@@ -72,6 +72,9 @@
             &:active {
                 opacity: 0.9;
             }
+            &[disabled] {
+                opacity: 0.65;
+            }
         }
     }
 }
