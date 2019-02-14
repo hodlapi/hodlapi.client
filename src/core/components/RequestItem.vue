@@ -23,18 +23,20 @@
           <i class="meta-icon el-icon-date"></i>
           <div class="meta-value">{{request.fromDate | formatDate}} - {{request.toDate | formatDate}}</div>
         </div>
-        <div class="meta">
+        <div class="meta" v-if="request.files && request.files.length>0">
           <i class="meta-icon el-icon-document"></i>
-          <div class="meta-value" v-for="(file,index) of request.files"
-              :key="file._id">
-              {{file.name}}
-              <span v-if="index != Object.keys(request.currencyPairs).length - 1">,&nbsp;</span></div>
+          <div class="meta-value">
+              {{request.files.length}} files
+              </div>
         </div>
       </div>
     </div>
     <div class="request-action">
-        <span class="action">
-            <i class="el-icon-download"></i>
+        <span class="action" >
+            <i class="el-icon-download active-action" 
+            @click="downloadFile(request.resultUrl)" v-if="request.status=='ready'"></i>
+            <i class="el-icon-time" 
+            v-if="request.status!='ready'"></i>
         </span>
     </div>
   </div>
@@ -48,6 +50,11 @@ export default {
   props: {
     request: {
       type: Object
+    }
+  },
+  methods: {
+    downloadFile(url) {
+      window.open(url + "?access_token=" + localStorage.getItem("token"));
     }
   }
 };
@@ -79,7 +86,6 @@ Vue.filter("formatDate", function(value) {
     align-items: center;
     justify-content: center;
     .action {
-      cursor: pointer;
       height: 44px;
       width: 44px;
       border-radius: 100%;
@@ -89,6 +95,9 @@ Vue.filter("formatDate", function(value) {
       align-items: center;
       justify-content: center;
       font-size: 24px;
+      .active-action {
+        cursor: pointer;
+      }
     }
   }
   .request-meta {
