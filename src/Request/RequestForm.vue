@@ -165,8 +165,20 @@ export default {
       api()
         .post("/request", { ...this.form })
         .then(() => {
+          this.getRequests();
           this.clearForm();
           this.showSuccessMessage();
+        });
+    },
+
+    getRequests() {
+      api()
+        .get("/requests")
+        .then(data => {
+          this.$store.dispatch(
+            "requests/setRequests",
+            R.pathOr(null, ["data"])(data)
+          );
         });
     },
 
