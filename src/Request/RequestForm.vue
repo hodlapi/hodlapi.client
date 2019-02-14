@@ -77,7 +77,6 @@
 import ExchangeItem from "../core/components/ExchangeItem";
 import IntervalItem from "../core/components/IntervalItem";
 import { mapState } from "vuex";
-import { Message } from "element-ui";
 import { api } from "../core/lib";
 import * as R from "ramda";
 
@@ -165,8 +164,7 @@ export default {
     createRequest() {
       api()
         .post("/request", { ...this.form })
-        .then(data => {
-          console.log(data);
+        .then(() => {
           this.clearForm();
           this.showSuccessMessage();
         });
