@@ -1,4 +1,4 @@
-const host = 'https://api.hodlapi.com/api';
+const host = process.env.VUE_APP_HOST;
 
 export {
     host
