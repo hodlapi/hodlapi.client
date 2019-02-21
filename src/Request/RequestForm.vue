@@ -54,6 +54,7 @@
               type="daterange"
               align="right"
               unlink-panels
+              :picker-options="pickerOptions"
               range-separator="To"
               start-placeholder="Pick start date"
               end-placeholder="Pick end date"
@@ -79,6 +80,7 @@ import IntervalItem from "../core/components/IntervalItem";
 import { mapState } from "vuex";
 import { api } from "../core/lib";
 import * as R from "ramda";
+import * as moment from "moment";
 
 export default {
   data() {
@@ -86,6 +88,9 @@ export default {
       form: {
         dataSource: null,
         intervals: []
+      },
+      pickerOptions: {
+        disabledDate: (e) => moment(e).isAfter(moment())
       }
     };
   },
@@ -146,7 +151,9 @@ export default {
           this.$store.dispatch(
             "dataSources/setDataSources",
             R.pathOr(null, ["data"])(data)
-          );
+          ).then(() => {
+            this.onDataSourceSelect(R.pathOr(null, ["data", "0", "_id"])(data));
+          });
         });
     },
 
@@ -163,7 +170,7 @@ export default {
 
     createRequest() {
       api()
-        .post("/request", { ...this.form })
+        .post("/request/parse", { ...this.form })
         .then(() => {
           this.clearForm();
           this.showSuccessMessage();
