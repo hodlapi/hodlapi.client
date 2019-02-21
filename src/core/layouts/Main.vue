@@ -9,7 +9,7 @@
       <ul class="navbar"></ul>
       <div class="user-meta">
         <router-link :to="{name: 'user'}">
-          <img src="http://i.pravatar.cc/300" class="user-meta-block">
+          <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png" class="user-meta-block">
         </router-link>
       </div>
     </div>
