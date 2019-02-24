@@ -46,6 +46,9 @@ export default {
                     commit('SET_USER', user);
                     return user;
                 });
+        },
+        logout({ commit }) {
+            return Promise.resolve(R.map(commit)(['REMOVE_TOKEN', 'REMOVE_USER']));
         }
     }
 };
