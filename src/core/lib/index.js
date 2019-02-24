@@ -1,5 +1,7 @@
 import api from './api';
+import EventBus from './eventBus';
 
 export {
-    api
+    api,
+    EventBus
 };
