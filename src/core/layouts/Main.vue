@@ -10,9 +10,9 @@
       <div class="user-meta">
         <el-popover placement="right" width="60" trigger="click">
           <div class="user-context__menu">
-            <div class="user-context__menu-item">
+            <!-- <div class="user-context__menu-item">
               <router-link :to="{name: 'user'}">Profile</router-link>
-            </div>
+            </div> -->
             <div class="user-context__menu-item">
               <a @click="logout">Logout</a>
             </div>
