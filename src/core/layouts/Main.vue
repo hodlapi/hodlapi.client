@@ -8,9 +8,21 @@
       </div>
       <ul class="navbar"></ul>
       <div class="user-meta">
-        <router-link :to="{name: 'user'}">
-          <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png" class="user-meta-block">
-        </router-link>
+        <el-popover placement="right" width="60" trigger="click">
+          <div class="user-context__menu">
+            <div class="user-context__menu-item">
+              <router-link :to="{name: 'user'}">Profile</router-link>
+            </div>
+            <div class="user-context__menu-item">
+              <a @click="logout">Logout</a>
+            </div>
+          </div>
+          <img
+            src="https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/512x512/plain/user.png"
+            class="user-meta-block"
+            slot="reference"
+          >
+        </el-popover>
       </div>
     </div>
     <div class="main__container">
@@ -18,6 +30,18 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  methods: {
+    logout() {
+      this.$store
+        .dispatch("user/logout")
+        .then(() => this.$router.replace("/login"));
+    }
+  }
+};
+</script>
+
 
 <style lang="scss" scoped>
 @import "../styles/_consts.scss";
@@ -69,6 +93,33 @@
     margin: 60px;
     width: 100%;
     margin-left: calc(#{$sidebar-width} + 60px);
+  }
+}
+</style>
+
+<style lang="scss">
+@import "../styles/_consts.scss";
+
+.user-context {
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    &-item {
+      width: 100%;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 4px;
+      & > * {
+        text-decoration: none;
+        color: rgba(black, 0.6);
+      }
+      &:hover {
+        background-color: rgba(black, 0.09);
+      }
+    }
   }
 }
 </style>
