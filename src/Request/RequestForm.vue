@@ -8,12 +8,21 @@
           <div class="form-value">
             <ExchangeItem
               class="exchange-item-container"
-              v-for="item in dataSources"
+              v-for="item in filteredDataSources"
               :key="item.name"
               :item="item"
               :selected="item._id === form.dataSource"
               @click.native="onDataSourceSelect(item._id)"
             ></ExchangeItem>
+            <el-tooltip
+              class="item"
+              effect="dark"
+              content="Coming soon"
+              placement="bottom"
+              v-if="zeroXDataSource"
+            >
+              <ExchangeItem class="exchange-item-container disabled" :item="zeroXDataSource"></ExchangeItem>
+            </el-tooltip>
           </div>
         </div>
         <div class="form-group">
@@ -90,7 +99,7 @@ export default {
         intervals: []
       },
       pickerOptions: {
-        disabledDate: (e) => moment(e).isAfter(moment())
+        disabledDate: e => moment(e).isAfter(moment())
       }
     };
   },
@@ -99,7 +108,13 @@ export default {
       intervals: R.pathOr([], ["intervals", "intervals"]),
       dataSources: R.pathOr([], ["dataSources", "dataSources"]),
       currencyPairs: R.pathOr([], ["currencyPairs", "currencyPairs"])
-    })
+    }),
+    filteredDataSources() {
+      return R.filter(e => e.name !== "0x")(this.dataSources || []);
+    },
+    zeroXDataSource() {
+      return R.find(e => e.name === "0x")(this.dataSources || []) || {};
+    }
   },
   components: {
     ExchangeItem,
@@ -148,12 +163,20 @@ export default {
       api()
         .get("/dataSources")
         .then(data => {
-          this.$store.dispatch(
-            "dataSources/setDataSources",
-            R.pathOr(null, ["data"])(data)
-          ).then(() => {
-            this.onDataSourceSelect(R.pathOr(null, ["data", "0", "_id"])(data));
-          });
+          this.$store
+            .dispatch(
+              "dataSources/setDataSources",
+              R.pathOr(null, ["data"])(data)
+            )
+            .then(() => {
+              this.onDataSourceSelect(
+                R.compose(
+                  R.pathOr(null, ["_id"]),
+                  R.find(e => e.name === "Binance"),
+                  R.propOr([], "data")
+                )(data)
+              );
+            });
         });
     },
 
