@@ -3,7 +3,7 @@
     <div class="card request-list-container">
       <div class="form with-bottom-action">
         <span class="form-title">Previous Requests</span>
-        <div class="form-group">
+        <div class="form-group" v-if="requests && requests.length">
           <RequestItem
             v-for="request in requests"
             :key="request.id"
@@ -11,8 +11,11 @@
             class="list-item-container"
           />
         </div>
+        <div class="form-group" v-else>
+          <span class="form-group-splash-message">Requests list is empty</span>
+        </div>
         <div class="action-group">
-          <span class="show-more-action">
+          <span class="show-more-action" v-if="false">
             Show more
             <i class="el-icon-caret-bottom"></i>
           </span>
@@ -29,48 +32,6 @@ import { api } from "../core/lib";
 import * as R from "ramda";
 
 export default {
-  // data() {
-  //   return {
-  //     requests: [
-  //       // {
-  //       //   id: 0,
-  //       //   interval: "1h",
-  //       //   logo: require("../assets/binance.svg"),
-  //       //   pair: "DAI / WETH",
-  //       //   range: "01.02.2017 - 02.04.2018",
-  //       //   size: "5 MB",
-  //       //   link: ""
-  //       // },
-  //       // {
-  //       //   id: 1,
-  //       //   interval: "1m",
-  //       //   logo: require("../assets/0x.svg"),
-  //       //   pair: "BNT / ETH, RPX / ETH",
-  //       //   range: "01.02.2017 - 02.04.2018",
-  //       //   size: "25 MB",
-  //       //   link: ""
-  //       // },
-  //       // {
-  //       //   id: 2,
-  //       //   interval: "15m",
-  //       //   logo: require("../assets/binance.svg"),
-  //       //   pair: "LTC / BTC , TRX / BTC, PAI / ETH",
-  //       //   range: "03.05.2018 - 02.08.2018",
-  //       //   size: "14 MB",
-  //       //   link: "http://test.com"
-  //       // },
-  //       // {
-  //       //   id: 3,
-  //       //   interval: "5m",
-  //       //   logo: require("../assets/0x.svg"),
-  //       //   pair: "MKR / WETH",
-  //       //   range: "01.02.2017 - 02.04.2018",
-  //       //   size: "55 MB",
-  //       //   link: ""
-  //       // }
-  //     ]
-  //   };
-  // },
   props: {
     list: {
       type: Array
