@@ -1,4 +1,6 @@
-import { api } from "../../core/lib";
+import {
+    api
+} from "../../core/lib";
 import * as R from "ramda";
 
 export default {
@@ -7,6 +9,11 @@ export default {
         requests: []
     },
     mutations: {
+        UPDATE_REQUEST(state, request) {
+            state.requests = R.map(e => R.eqProps('_id')(e)(request) ? {
+                ...request
+            } : e)(state.requests);
+        },
         SET_REQUESTS(state, requests) {
             state.requests = requests;
         },
@@ -16,11 +23,15 @@ export default {
         }
     },
     actions: {
-        setRequests({ commit }, requests) {
+        setRequests({
+            commit
+        }, requests) {
             return Promise.resolve(commit("SET_REQUESTS", requests));
         },
 
-        loadRequests({ commit }) {
+        loadRequests({
+            commit
+        }) {
             return api()
                 .get("/requests")
                 .then(R.pathOr({}, ["data"]))
