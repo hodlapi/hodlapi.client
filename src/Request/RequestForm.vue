@@ -194,7 +194,13 @@ export default {
     createRequest() {
       api()
         .post("/request/parse", { ...this.form })
-        .then(() => {
+        .then(data => {
+          const requestId = R.pathOr(null, ["data", "_id"])(data);
+        
+          this.sockets.subscribe(requestId, data => {
+            this.$store.commit("requests/UPDATE_REQUEST", data);
+            this.sockets.unsubscribe(requestId);
+          });
           this.getRequests();
           this.clearForm();
           this.showSuccessMessage();
@@ -214,7 +220,7 @@ export default {
 
     clearForm() {
       this.form = {
-        dataSource: null,
+        // dataSource: null,
         intervals: [],
         range: null,
         currencyPairs: []
