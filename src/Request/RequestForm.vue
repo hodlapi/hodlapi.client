@@ -196,7 +196,7 @@ export default {
         .post("/request/parse", { ...this.form })
         .then(data => {
           const requestId = R.pathOr(null, ["data", "_id"])(data);
-        
+
           this.sockets.subscribe(requestId, data => {
             this.$store.commit("requests/UPDATE_REQUEST", data);
             this.sockets.unsubscribe(requestId);
@@ -220,7 +220,7 @@ export default {
 
     clearForm() {
       this.form = {
-        // dataSource: null,
+        ...this.form,
         intervals: [],
         range: null,
         currencyPairs: []
