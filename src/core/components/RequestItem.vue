@@ -5,39 +5,47 @@
     </div>
     <div class="request-meta">
       <div class="request-meta-currency-pairs">
-        <span class="request-meta-name"
-              v-for="(currencyPair,index) of request.currencyPairs"
-              :key="currencyPair.name">
-              {{currencyPair.name}}
-              <span v-if="index != Object.keys(request.currencyPairs).length - 1">,&nbsp;</span>
+        <span
+          class="request-meta-name"
+          v-for="(currencyPair,index) of request.currencyPairs"
+          :key="currencyPair.name"
+        >
+          {{currencyPair.name}}
+          <span
+            v-if="index != Object.keys(request.currencyPairs).length - 1"
+          >,&nbsp;</span>
         </span>
       </div>
       <div class="request-meta-values">
         <div class="meta">
           <i class="meta-icon el-icon-time"></i>
-          <div class="meta-value" 
-          v-for="interval in request.intervals"
-              :key="interval">{{interval}}&nbsp;</div>
+          <div
+            class="meta-value"
+            v-for="interval in request.intervals"
+            :key="interval"
+          >{{interval}}&nbsp;</div>
         </div>
         <div class="meta">
           <i class="meta-icon el-icon-date"></i>
-          <div class="meta-value">{{request.fromDate | formatDate}} - {{request.toDate | formatDate}}</div>
+          <div
+            class="meta-value"
+          >{{request.fromDate | formatDate}} - {{request.toDate | formatDate}}</div>
         </div>
         <div class="meta" v-if="request.files && request.files.length>0">
           <i class="meta-icon el-icon-document"></i>
-          <div class="meta-value">
-              {{request.files.length}} files
-              </div>
+          <div class="meta-value">{{request.files.length}} files</div>
         </div>
       </div>
     </div>
     <div class="request-action">
-        <span class="action" >
-            <i class="el-icon-download active-action" 
-            @click="downloadFile(request.resultUrl)" v-if="request.status=='ready'"></i>
-            <i class="el-icon-time" 
-            v-if="request.status!='ready'"></i>
-        </span>
+      <span class="action" :class="{'pulse': request.status !== 'ready'}">
+        <i
+          class="el-icon-download active-action"
+          @click="downloadFile(request.resultUrl)"
+          v-if="request.status=='ready'"
+        ></i>
+        <i class="el-icon-time" v-if="request.status!='ready'"></i>
+      </span>
     </div>
   </div>
 </template>
@@ -97,6 +105,31 @@ Vue.filter("formatDate", function(value) {
       font-size: 24px;
       .active-action {
         cursor: pointer;
+      }
+      &.pulse {
+        animation: pulse 1s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          opacity: 0.5;
+        }
+
+        25% {
+          opacity: 0.75;
+        }
+
+        50% {
+          opacity: 0.99;
+        }
+
+        75% {
+          opacity: 0.75;
+        }
+
+        100% {
+          opacity: 0.5;
+        }
       }
     }
   }
